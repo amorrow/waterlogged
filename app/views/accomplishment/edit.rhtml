@@ -1,0 +1,12 @@
+<h1>Editing accomplishment</h1>
+
+<% form_tag :action => 'update', :id => @accomplishment do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Submit' %>
+<% end %>
+
+<% if session[:last_index] %>
+<%= link_to 'Back', session[:last_index] %>
+<% else %>
+<%= link_to 'Back', :controller => 'waterlogged', :action => 'index' %>
+<% end %>

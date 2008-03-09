@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+if ARGV[0] =~ /^(-{1,2})k(ill)?$/i
+  `kill #{open("#{File.dirname(__FILE__)}/../tmp/pids/mongrel.pid").read}`
+  exit!
+end
+if ARGV[0] =~ /^(-{1,2})r(estart)?$/i
+  `kill #{open("#{File.dirname(__FILE__)}/../tmp/pids/mongrel.pid").read}`
+  ARGV.delete_at(0)
+end
+require File.dirname(__FILE__) + '/../config/boot'
+require 'commands/server'

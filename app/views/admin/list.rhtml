@@ -1,0 +1,6 @@
+<h1>Users In The System</h1>
+<%= check_box_tag 'show_enabled_checkbox', "yes", true %><label for="show_enabled_checkbox">Show enabled users</label>
+<%= observe_field 'show_enabled_checkbox', :url => {:action => :hide_users}, :with => 'show_hidden', :update => "user_list" %>
+<div id="user_list">
+	<%= render(:partial => "user_list", :object => @users) %>
+</div>

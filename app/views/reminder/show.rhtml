@@ -1,0 +1,10 @@
+<h2><%=@reminder.class==LogReminder ? "Scheduled Log" : "Reminder"%></h2>
+<p>
+	<b>Log Name:</b> <%=@reminder.log.name%><br/>
+	<b>Email address log will be sent to:</b> <%=@reminder.email%><br/>
+	<b>Next date that log will be sent:</b> <%=@reminder.send_date.strftime("%a, %b %d, %Y at %I:%M %p")%><br/>
+	<b>Is log sent repeatedly?</b> <%=@reminder.repeat ? "yes" : "no"%><br/>
+	<%if @reminder.repeat%><b>How often?</b> <%=@reminder.repeat_type%><br/><%end%>
+	<b>Format Name:</b> <%=@reminder.reminder_format.name%>
+</p>
+<%=link_to "Back", :action => 'list'%> | <%=link_to "Edit", :action => 'edit', :id => @reminder%>

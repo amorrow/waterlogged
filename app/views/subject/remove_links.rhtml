@@ -1,0 +1,5 @@
+<h2>Remove subject from logs?</h2><h3>(<%= @subject.name %>)</h3>
+<p style="margin-left: 0.5em; margin-right: 0.5em">Since you have archived this subject, you might want to remove it from any associated logs. Click Yes to remove it from all logs, or No to leave it as it is.</p>
+<p><h1><%= link_to 'No!', :action => 'show', :id => @subject %></p>
+<br/>
+<p><%= link_to 'Yes, remove it', {:action => 'remove_links', :id => @subject}, :method => :post %></p>

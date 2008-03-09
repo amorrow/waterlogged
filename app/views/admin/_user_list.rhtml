@@ -1,0 +1,5 @@
+<ul>
+	<% user_list.each do |user| %>
+		<li><%= link_to user.name, :action => :show, :id => user %><% if !user.enabled %> (<%= link_to_remote 'enable', :url => {:action=>:enable, :id=>user}, :update => 'user_list', :with => "'show_hidden=' + document.getElementById('show_enabled_checkbox').value" %>)<% end %></li>
+	<% end %>
+</ul>

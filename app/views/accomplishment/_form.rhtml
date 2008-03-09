@@ -1,0 +1,9 @@
+<%= error_messages_for 'accomplishment' %>
+<!--[form:accomplishment]-->
+<p><label for="accomplishment_description">Description</label><br/>
+<%= text_area 'accomplishment', 'description'  %></p>
+<p><label for="accomplishment_subject_id">Subject</label><br>
+<%= select("accomplishment", "subject_id", User.find(session[:user_id]).subjects.collect{|p|[ p.name, p.id ]}) %></p>
+<p><label for="accomplishment_created_at">Created At</label><br>
+<%= datetime_select 'accomplishment', 'created_at' %></p>
+<!--[eoform:accomplishment]-->

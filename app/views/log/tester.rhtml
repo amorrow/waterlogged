@@ -1,0 +1,32 @@
+<%date_format = "%a, %b %d"%>
+<h2>Log for <%=data[:user_name]%></h2>
+<%if data[:mentor_name]%><h3>Attention: <%=data[:mentor_name]%></h3><%end%>
+<h4><%=data[:start_date]%> through <%=data[:end_date]%></h4>
+<br/>
+<%data[:weeks].each do |week|%>
+	<table border=1>
+		<th>
+		<%week.each do |day|%>
+			<td><%=day.strftime(date_format)%></td>
+		<%end%>
+		</th>
+		<%data[:subjects].each do |subject|%>
+			<%while data[:accomplishments][week][subject].length > 0%>
+				<tr>
+					<td><%= subject.name%></td>
+					<%week.each do |day|%>
+						<td>
+							<%temp = data[:accomplishments][week][subject].find do |obj|%>
+								<%obj.created_at.to_date == day%>
+							<%end%>
+							<%if temp%>
+								<%= temp.description%>
+								<%data[:accomplishments][week][subject].delete temp%>
+							<%end%>
+						</td>
+					<%end%>
+				</tr>
+			<%end%>
+		<%end%>
+	</table><br/>
+<%end%>

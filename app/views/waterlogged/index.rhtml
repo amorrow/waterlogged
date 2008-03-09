@@ -1,0 +1,34 @@
+<%user = User.find(session[:user_id])%><h1>Welcome, <%= user.first_name %></h1>
+Today's date is <%= link_to Time.now.strftime("%a %m/%d/%Y"), :action => 'index' %><br><br>
+<% if @page_date_y == Date.today %>
+	<%= link_to (@page_date_y).strftime("%a %m/%d/%Y"), :action => 'index' %>
+<% else %>
+	<%= link_to (@page_date_y).strftime("%a %m/%d/%Y"), :year => @page_date_y.year, :month => @page_date_y.month, :day => @page_date_y.day %>
+<% end %> | 
+<%= @page_date.strftime("%a %m/%d/%Y") %> | 
+<% if @page_date_t == Date.today %>
+<%= link_to (@page_date_t).strftime("%a %m/%d/%Y"), :action => 'index' %>
+<% else %>
+<%= link_to (@page_date_t).strftime("%a %m/%d/%Y"), :year => @page_date_t.year, :month => @page_date_t.month, :day => @page_date_t.day %>
+<% end %>
+<table>
+	<tr>
+		<th>Subject Name</th>
+		<th></th>
+		<th>Accomplishment Description</th>
+		<th></th>
+		<th></th><!--those blanks are for the new, edit, and delete columns-->
+	</tr>
+	<% @subjects.each_with_index do |s, i| %>
+			<tr>
+				<td><%= s.name %></td>
+				<td><%= link_to 'New', :controller => 'accomplishment', :action => 'new', :subject_id => s %></td>
+				<% @accomplishments[i].each_with_index do |a, j| %>
+					<%= "</tr><tr><td></td><td></td>" if j > 0 %>
+					<td><%= a.description %></td>
+					<td><%= link_to 'Edit', :controller => 'accomplishment', :action => 'edit', :id => a %></td>
+					<td><%= link_to 'Destroy', { :controller => 'accomplishment', :action => 'destroy', :id => a }, :confirm => 'Are you sure?', :method => :post %></td>
+				<% end %>
+			</tr>
+		<% end %>
+</table>

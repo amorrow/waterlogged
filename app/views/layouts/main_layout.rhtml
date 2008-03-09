@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>WaterLogged<%= ": " + controller.action_name unless controller.action_name == "index" %></title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= javascript_include_tag 'prototype' %>
+</head>
+<body>
+<% if session[:user_id] %>	
+<%= link_to 'Log out', :controller => 'user', :action => 'logout' %> | 
+<%= link_to 'Home', :controller => 'waterlogged', :action => 'index'%> | 
+<%= link_to 'Account Settings', :controller => 'user', :action => 'index'%> | 
+<%= link_to 'Subjects', :controller => 'subject', :action => 'index' %> | 
+<%= link_to 'Logs', :controller => 'log', :action => 'index' %> | 
+<%= link_to 'Reminders', :controller => 'reminder', :action => 'index' %>
+<% if User.find(session[:user_id]).admin %> | <%= link_to 'Admin', :controller => :admin, :action => :index %>
+<% end %>
+<% end %>
+
+<p style="color: green"><%= flash[:notice] %></p>
+<p style="color: red"><%= flash[:warning] %></p>
+<p style="color: red"><%= flash[:error] %></p>
+
+<%= yield  %>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<% for column in Subject.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @subject.send(column.name) %>
+</p>
+<% end %>
+<table>
+	<tr>
+		<th>Log Name</th>
+		<th></th><!--for the remove button-->
+	</tr>
+	<% @subject.logs.each do |l| %>
+	<tr>
+		<td><%= l.name %></td>
+		<td><%= link_to 'Remove', { :action => 'remove_from_log', :id => @subject, :log_id => l }, :method => :post %></td>
+	</tr>
+	<% end %>
+	<% if @subject.logs.length == 0 %>
+		<tr><td>No logs.</td></tr>
+	<% end %>
+</table>
+<% if !@subject.archived %>
+<%valid_logs = Log.find_all_by_user_id(session[:user_id]).reject {|l|@subject.logs.include? l}%>
+<% if valid_logs.length > 0 %>
+<% form_tag :action => 'add_to_log', :id => @subject do %>
+<p><label for="log_subject">Add to log:</label><br>
+<%= select('subject', 'logs', valid_logs.collect {|p| [ p.name, p.id ]}) %></p>
+<%= submit_tag 'Add' %>
+<% end %>
+<% else %>
+<p style="color: grey">No logs to add to.</p>
+<% end %>
+<% end %>
+<%= link_to 'Edit', :action => 'edit', :id => @subject %> |
+<%= link_to 'Back', :action => 'list' %>

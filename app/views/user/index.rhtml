@@ -1,0 +1,7 @@
+<%user = User.find(session[:user_id])%><h1>Editing Account Settings for <%= user.login %></h1>
+Your full name: <%= user.name %><br>
+Your mentor's name: <%= user.mentor_name %><br>
+Email address: <%= user.email %><br><br>
+<%= link_to 'Edit Info', :action => 'edit' %><br>
+<%= link_to 'Change Password', :action => 'change_password' %><br>
+<%= link_to 'Delete Account', :action => 'delete' %>

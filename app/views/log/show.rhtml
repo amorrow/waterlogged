@@ -1,0 +1,49 @@
+<% for column in Log.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @log.send(column.name) %>
+</p>
+<% end %>
+<p>
+	<b>Format:</b> <%= @log.format.name %>
+</p>
+<p>
+	<%= link_to "Print without updating date", {:action => :print_without_update, :id => @log}, {:method => 'post'} %>
+</p>
+<p>
+	<%= link_to "Print and update date", {:action => :print_with_update, :id => @log}, {:method => 'post'} %>
+</p>
+<p>
+	<!--<a href="<%=url_for :action => 'print_without_update', :id => @log%>" onclick="window.open(this.href);return false;">Another way</a>-->
+	<%form_tag :action => 'print_without_update', :id => @log do%>
+	<label>Start Date</label>
+	<%= date_select("dates", "start")%><br/>
+	<label>End Date</label>
+	<%= date_select("dates", "end")%><br/>
+	<%= submit_tag "Open Printable View (without updating date)"%>
+	<%end%>
+</p>
+<table>
+	<tr>
+		<th>Subject Name</th>
+		<th></th><!--for the remove button-->
+	</tr>
+	<% @log.subjects.each do |s| %>
+	<tr>
+		<td><%= s.name %></td>
+		<td><%= link_to 'Remove', { :action => 'remove_subject', :id => @log, :subject_id => s }, :method => :post %></td>
+	</tr>
+	<% end %>
+</table>
+<%valid_subjects = Subject.find_all_by_user_id(session[:user_id]).reject {|p| @log.subjects.include?(p) || p.archived}%>
+<% if valid_subjects.length > 0 %>
+<% form_tag :action => 'add_subject', :id => @log do %>
+<p><label for="log_subject">Add subject:</label><br>
+<%= select('log', 'subjects', valid_subjects.collect {|p| [ p.name, p.id ]}) %></p>
+<%= submit_tag 'Add' %>
+<% end %>
+<% else %>
+<p style="color: grey">No subjects to add.</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @log %> |
+<%= link_to 'Back', :action => 'list' %>

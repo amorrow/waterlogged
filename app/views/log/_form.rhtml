@@ -1,0 +1,9 @@
+<%= error_messages_for 'log' %>
+
+<!--[form:log]-->
+<p><label for="log_name">Name</label><br/>
+<%= text_field 'log', 'name'  %></p>
+<p><label for="log_format_id">Format</label><br/>
+<%= select("log", "format_id", @formats.collect { |f| [f.name, f.id] }) %></p>
+<!--[eoform:log]-->
+

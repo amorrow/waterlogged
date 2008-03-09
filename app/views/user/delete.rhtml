@@ -1,0 +1,7 @@
+<h2>Remove Account</h2>
+<p>Are you <u><b>positive?</b></u> This will <u>permanently</u> delete <u>all</u> associated data, including
+subjects, logs, accomplishments, and reminders.</p>
+<h1><%= link_to 'No! Take me back!', :action => 'index' %></h1><br><br>
+<% form_tag :action => 'delete' do %>
+<%= submit_tag 'I\'m positive' %>
+<% end %>

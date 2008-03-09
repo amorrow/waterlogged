@@ -1,0 +1,2 @@
+module WaterloggedHelper
+end

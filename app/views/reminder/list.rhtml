@@ -1,0 +1,9 @@
+<h1>Reminders &amp; Scheduled Logs</h1>
+<h3>Reminders</h3>
+<h3>Scheduled Logs</h3>
+<table>
+	<tr><td>Log</td><td>Email</td><td>Next Send Date</td><td><!--show--></td><td><!--edit--></td><td><!--destroy--></td></tr>
+	<% @reminders.each do |r| %>
+		<tr><td><%=r.log.name%></td><td><%=r.email%></td><td><%=r.send_date%></td><td><%=link_to 'Show', {:action => :show, :id => r}%></td><td><%=link_to 'Edit', {:action => :edit, :id => r}%></td><td>Destroy</td></tr>
+	<% end %>
+</table>
