@@ -12,11 +12,9 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
-  adapter: mysql
-  database: waterlogged_development
-  username: andy
-  password: 1ed5fes2
-  host: 192.168.1.10
+  adapter: sqlite3
+  database: db/development.sqlite3
+  timeout: 5000
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -24,9 +22,9 @@ development:
 test:
   adapter: mysql
   database: waterlogged_test
-  username: ruby
-  password: railsrocks
-  socket: /var/lib/mysql/mysql.sock
+  username: waterlogged
+  password: Yzm:FWvu4ZdKrfZG
+  socket: /var/run/mysql/mysql.sock
 
 production:
   adapter: mysql
