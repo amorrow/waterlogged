@@ -1,15 +1,65 @@
-<% form_tag :action=> "login" do %>
-<h3>Login</h3> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>
+			WaterLogged<%= ": " + controller.action_name unless controller.action_name == "index" %>
+		</title>
+		<script type="text/javascript">
+//<![CDATA[
+		window.onload = function() {
+		document.getElementById("user_login").focus();
+		}
+		//]]>
+		</script><%= stylesheet_link_tag 'scaffold' %><%= javascript_include_tag 'prototype' %>
+		<style type="text/css">
 
-<label for="user_login">Login:</label><br/>
-<%= text_field "user", "login", :size => 20 %><br/>
+		body {
+			background-color: #81a594;
+		}
 
-<label for="user_password">Password:</label><br/>
-<%= password_field "user", "password", :size => 20 %><br/>
+		#login_form {
+			background-color: #e6e6dc;
+			border: 1px solid black;
+			margin-left: 30%;
+			margin-right: 30%;
+			margin-top: 10em;
+			color: #00628b;
+		}
 
-<%= submit_tag "Submit" %>
+		#login_form form {
+			margin-left: 15%;
+			margin-right: 15%;
+			width: 70%;
+			margin-bottom: 1.5em;
+			margin-top: 1.5em;
+		}
 
-<%= link_to 'Register', :action => 'signup' %> |
-<%= link_to 'Forgot my password', :action => 'forgot_password' %> 
+		#login_form .login_text {
+			color: #00628b;
+		}
 
-<% end %>
+		</style>
+	</head>
+	<body>
+		<div id="login_form">
+			<% form_tag :action=> "login" do %>
+			<h3>
+				Login
+			</h3>
+			<p style="color: red;">
+				<%= flash[:warning] %>
+			</p>
+			<p style="color: green;">
+				<%= flash[:notice] %>
+			</p>
+			<label for="user_login">Username:</label><br />
+			<%= text_field "user", "login", :size => 37 %><br />
+			<label for="user_password">Password:</label><br />
+			<%= password_field "user", "password", :size => 37 %><br />
+			<%= submit_tag "Submit", :class => 'login_text' %> <%= link_to 'Register', {:action => 'signup'}, :class => 'login_text' %> | 
+			<%= link_to 'Forgot my password', {:action => 'forgot_password'}, :class => 'login_text' %> <% end %>
+		</div>
+	</body>
+</html>

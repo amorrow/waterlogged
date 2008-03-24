@@ -7,18 +7,72 @@
   <title>WaterLogged<%= ": " + controller.action_name unless controller.action_name == "index" %></title>
   <%= stylesheet_link_tag 'scaffold' %>
   <%= javascript_include_tag 'prototype' %>
+
+  <style type="text/css">
+
+    body {
+      background-color: #81a594;
+    }
+
+    #header {
+      background-color: #e6e6dc;
+      background-image: url(/images/WLHeaderLogo.jpg);
+      background-repeat: no-repeat;
+      background-position: left top;
+      color: #00628b;
+      padding: 10px 0px 0px 165px;
+      border: 1px solid #000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #header h1 {
+      font-size: 5em;
+    }
+
+    #header p {
+      color: #81a594;
+      font-size: 1.5em;
+    }
+
+    /* blue text scheme: 81a594 (medium), 00628b (dark), and e6e6dc (light) */
+
+    #menubar {
+      padding-top: 4px;
+      padding-bottom: 6px;
+    }
+
+    #menubar .menuitem {
+      border-bottom: 1px solid #000;
+      border-right: 1px solid #000;
+      border-left: 1px solid #000;
+      padding: 5px 15px 5px 15px;
+      background-color: #00628b;
+      text-decoration: none;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.1em;
+    }
+
+  </style>
+
 </head>
 <body>
+<div id="header">
+<h1>Waterlogged</h1>
+<p>www.mywaterlogged.com</p>
+</div> <!-- id="header" -->
+<div id="menubar">
 <% if session[:user_id] %>	
-<%= link_to 'Log out', :controller => 'user', :action => 'logout' %> | 
-<%= link_to 'Home', :controller => 'waterlogged', :action => 'index'%> | 
-<%= link_to 'Account Settings', :controller => 'user', :action => 'index'%> | 
-<%= link_to 'Subjects', :controller => 'subject', :action => 'index' %> | 
-<%= link_to 'Logs', :controller => 'log', :action => 'index' %> | 
-<%= link_to 'Reminders', :controller => 'reminder', :action => 'index' %>
-<% if User.find(session[:user_id]).admin %> | <%= link_to 'Admin', :controller => :admin, :action => :index %>
+<%= link_to 'Log out', {:controller => 'user', :action => 'logout'}, :class => 'menuitem' %>
+<%= link_to 'Home', {:controller => 'waterlogged', :action => 'index'}, :class => 'menuitem' %>
+<%= link_to 'Account Settings', {:controller => 'user', :action => 'index'}, :class => 'menuitem' %>
+<%= link_to 'Subjects', {:controller => 'subject', :action => 'index'}, :class => 'menuitem' %>
+<%= link_to 'Logs', {:controller => 'log', :action => 'index'}, :class => 'menuitem' %>
+<%= link_to 'Reminders', {:controller => 'reminder', :action => 'index'}, :class => 'menuitem' %>
+<% if User.find(session[:user_id]).admin %> <%= link_to 'Admin', {:controller => :admin, :action => :index}, :class => 'menuitem' %>
 <% end %>
 <% end %>
+</div> <!-- id="menubar" -->
 
 <p style="color: green"><%= flash[:notice] %></p>
 <p style="color: red"><%= flash[:warning] %></p>

@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(:version => 15) do
   create_table "log_reminders", :force => true do |t|
     t.datetime "send_date"
     t.string   "email"
-    t.integer  "reminder_format_id"
-    t.boolean  "repeat",             :default => false
+    t.integer  "format_id"
+    t.boolean  "repeat",      :default => false
     t.string   "repeat_type"
     t.integer  "user_id"
     t.integer  "log_id"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 15) do
     t.integer "subject_id"
   end
 
-  add_index "logs_subjects", ["subject_id"], :name => "index_logs_subjects_on_subject_id"
   add_index "logs_subjects", ["log_id"], :name => "index_logs_subjects_on_log_id"
+  add_index "logs_subjects", ["subject_id"], :name => "index_logs_subjects_on_subject_id"
 
   create_table "reminder_formats", :force => true do |t|
     t.string "name"

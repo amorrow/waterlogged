@@ -57,10 +57,12 @@ class UserController < ApplicationController
         # Add MOTD line there! May need a DB model just for it, we'll see. Probably throw it into
         # the admin db model.
         redirect_to_stored
+	return
       else
-        flash[:warning] = "Login unsuccessful"
+        flash[:warning] = "Bad username or password"
       end
     end
+    render :action => 'login', :layout => false
   end
 
   def logout
