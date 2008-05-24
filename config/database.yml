@@ -24,11 +24,11 @@ test:
   database: waterlogged_test
   username: waterlogged
   password: Yzm:FWvu4ZdKrfZG
-  socket: /var/run/mysql/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
 
 production:
   adapter: mysql
   database: waterlogged_production
   username: waterlogged
   password: Yzm:FWvu4ZdKrfZG
-  socket: /var/run/mysqld/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock
