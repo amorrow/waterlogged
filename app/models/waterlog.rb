@@ -1,4 +1,4 @@
-class Log < ActiveRecord::Base
+class Waterlog < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :format

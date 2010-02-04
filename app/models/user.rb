@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   
   has_many :subjects, :dependent => :destroy
   has_many :accomplishments, :dependent => :destroy
-  has_many :logs, :dependent => :destroy
+  has_many :waterlogs, :dependent => :destroy
   has_many :log_reminders, :dependent => :destroy
   
   attr_protected :id, :salt

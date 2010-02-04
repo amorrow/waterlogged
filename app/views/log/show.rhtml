@@ -1,4 +1,4 @@
-<% for column in Log.content_columns %>
+<% for column in Waterlog.content_columns %>
 <p>
   <b><%= column.human_name %>:</b> <%=h @log.send(column.name) %>
 </p>

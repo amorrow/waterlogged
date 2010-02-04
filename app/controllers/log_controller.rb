@@ -13,21 +13,21 @@ class LogController < ApplicationController
          :add_flash => { :warning => 'GET used when POST was expected' }
 
   def list
-    @logs = current_user.logs
+    @logs = current_user.waterlogs
   end
 
   def show
-    @log = current_user.logs.find(params[:id])
+    @log = current_user.waterlogs.find(params[:id])
   end
 
   def new
-    @log = Log.new
+    @log = Waterlog.new
     @formats = Format.find(:all)
   end
 
   def create
-    @log = Log.new(params[:log])
-    current_user.logs << @log
+    @log = Waterlog.new(params[:log])
+    current_user.waterlogs << @log
     @log.last_exported = Time.now
     if @log.save
       flash[:notice] = 'Log was successfully created.'
@@ -38,12 +38,12 @@ class LogController < ApplicationController
   end
 
   def edit
-    @log = current_user.logs.find(params[:id])
+    @log = current_user.waterlogs.find(params[:id])
     @formats = Format.find(:all)
   end
 
   def update
-    @log = current_user.logs.find(params[:id])
+    @log = current_user.waterlogs.find(params[:id])
     if @log.update_attributes(params[:log])
       flash[:notice] = 'Log was successfully updated.'
       redirect_to :action => 'show', :id => @log
@@ -54,7 +54,7 @@ class LogController < ApplicationController
 
   def destroy
     begin
-      @log = current_user.logs.find(params[:id])
+      @log = current_user.waterlogs.find(params[:id])
     rescue
       flash[:warning] = "Invalid id!"
       redirect_to :action => 'list'
@@ -69,7 +69,7 @@ class LogController < ApplicationController
   def add_subject
     #flash[:notice] = "Got it."
     begin
-      @log = current_user.logs.find(params[:id])
+      @log = current_user.waterlogs.find(params[:id])
       @subject = current_user.subjects.find(params[:log][:subjects])
     rescue
       flash[:warning] = "Invalid ids. Please don't play with URLs."
@@ -90,7 +90,7 @@ class LogController < ApplicationController
   
   def remove_subject
     begin
-      @log = current_user.logs.find(params[:id])
+      @log = current_user.waterlogs.find(params[:id])
       @subject = current_user.subjects.find(params[:subject_id])
     rescue
       flash[:warning] = "Don't play with URLs!"
@@ -111,7 +111,7 @@ class LogController < ApplicationController
     data = {}
     data[:user_name] = current_user.name
     data[:mentor_name] = current_user.mentor_name
-    @log = current_user.logs.find(params[:id])
+    @log = current_user.waterlogs.find(params[:id])
     data[:subjects] = @log.subjects
     if params[:dates]
       start_date = Date.civil(params[:dates]["start(1i)"].to_i, params[:dates]["start(2i)"].to_i, params[:dates]["start(3i)"].to_i)
@@ -140,7 +140,7 @@ class LogController < ApplicationController
   def print_without_update
     d = prep_data
     # Permanent version
-    render :inline => (current_user.logs.find(params[:id]).format.body), :layout => "blank_layout", :locals => {:data => d}
+    render :inline => (current_user.waterlogs.find(params[:id]).format.body), :layout => "blank_layout", :locals => {:data => d}
     # Temp version (for testing only)
     # render :inline =>
     # (File.open(File.dirname(__FILE__)+'/../../default_formats/new.rhtml', "r") {|f| f.read}),
@@ -148,7 +148,7 @@ class LogController < ApplicationController
   end
   
   def print_with_update
-    l = current_user.logs.find(params[:id])
+    l = current_user.waterlogs.find(params[:id])
     # this has to be done before the change or else it'll be goofy
     d = prep_data
     l.last_exported = Time.now

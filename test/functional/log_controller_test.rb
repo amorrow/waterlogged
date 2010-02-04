@@ -50,14 +50,14 @@ class LogControllerTest < Test::Unit::TestCase
   end
 
   def test_create
-    num_logs = Log.count
+    num_logs = Waterlog.count
 
     post :create, :log => {}
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
-    assert_equal num_logs + 1, Log.count
+    assert_equal num_logs + 1, Waterlog.count
   end
 
   def test_edit
@@ -78,7 +78,7 @@ class LogControllerTest < Test::Unit::TestCase
 
   def test_destroy
     assert_nothing_raised {
-      Log.find(@first_id)
+      Waterlog.find(@first_id)
     }
 
     post :destroy, :id => @first_id
@@ -86,7 +86,7 @@ class LogControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'list'
 
     assert_raise(ActiveRecord::RecordNotFound) {
-      Log.find(@first_id)
+      Waterlog.find(@first_id)
     }
   end
 end

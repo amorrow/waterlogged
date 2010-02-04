@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 15) do
+ActiveRecord::Schema.define(:version => 16) do
 
   create_table "accomplishments", :force => true do |t|
     t.text     "description"
@@ -26,27 +26,12 @@ ActiveRecord::Schema.define(:version => 15) do
   create_table "log_reminders", :force => true do |t|
     t.datetime "send_date"
     t.string   "email"
-    t.integer  "format_id"
-    t.boolean  "repeat",      :default => false
+    t.integer  "reminder_format_id"
+    t.boolean  "repeat",             :default => false
     t.string   "repeat_type"
     t.integer  "user_id"
     t.integer  "log_id"
   end
-
-  create_table "logs", :force => true do |t|
-    t.string   "name"
-    t.integer  "user_id"
-    t.datetime "last_exported"
-    t.integer  "format_id"
-  end
-
-  create_table "logs_subjects", :id => false, :force => true do |t|
-    t.integer "log_id"
-    t.integer "subject_id"
-  end
-
-  add_index "logs_subjects", ["log_id"], :name => "index_logs_subjects_on_log_id"
-  add_index "logs_subjects", ["subject_id"], :name => "index_logs_subjects_on_subject_id"
 
   create_table "reminder_formats", :force => true do |t|
     t.string "name"
@@ -58,6 +43,11 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string  "name"
     t.integer "user_id"
     t.boolean "archived"
+  end
+
+  create_table "subjects_waterlogs", :id => false, :force => true do |t|
+    t.integer "waterlog_id"
+    t.integer "subject_id"
   end
 
   create_table "user_reminders", :force => true do |t|
@@ -80,6 +70,13 @@ ActiveRecord::Schema.define(:version => 15) do
     t.string   "mentor_name"
     t.boolean  "enabled",         :default => true
     t.boolean  "admin",           :default => false
+  end
+
+  create_table "waterlogs", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "last_exported"
+    t.integer  "format_id"
   end
 
 end

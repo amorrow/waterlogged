@@ -19,7 +19,7 @@
 	<% end %>
 </table>
 <% if !@subject.archived %>
-<%valid_logs = Log.find_all_by_user_id(session[:user_id]).reject {|l|@subject.logs.include? l}%>
+<%valid_logs = Waterlog.find_all_by_user_id(session[:user_id]).reject {|l|@subject.logs.include? l}%>
 <% if valid_logs.length > 0 %>
 <% form_tag :action => 'add_to_log', :id => @subject do %>
 <p><label for="log_subject">Add to log:</label><br>
